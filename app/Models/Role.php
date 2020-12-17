@@ -11,6 +11,15 @@ class Role extends Model
 
     protected $fillable = [
         'id',
-        'name'
+        'name',
+        'label'
     ];
+
+    public function abilities() {
+        return $this->belongsToMany(Ability::class)->withTimestamps();
+    }
+
+    public function allowTo($ability) {
+        $this->abilities()->sync($ability, false);
+    }
 }
